@@ -1,10 +1,14 @@
-simulate_dataMBH <- function(nobs = 10, ndims = 3, ngroups = 4, sdgrp = 2, variances = "fixed", vardiff = 0.5, means = rep(0,ndims), returntruecov = FALSE){
+simulate_dataMBH <- function(nobs = 10, ndims = 3, ngroups = 4, sdgrp = 2, sdobs = NULL, variances = "fixed", vardiff = 0.5, means = rep(0,ndims), returntruecov = FALSE){
   library(mvtnorm)
   
   #create a random covariance matrix
   n <- ndims
   p <- qr.Q(qr(matrix(rnorm(n^2), n)))
-  truecov <- crossprod(p, p*(runif(ndims,1,10)))
+    if(is.null(sdobs)){
+      truecov <- crossprod(p, p*(runif(ndims,1,10)))
+    } else {
+      truecov <- crossprod(p, p*(sdobs^2))
+    }
   
   #create an empty array for the data
   Y <- array(NA, dim = c(nobs,ngroups,ndims))
@@ -17,7 +21,7 @@ simulate_dataMBH <- function(nobs = 10, ndims = 3, ngroups = 4, sdgrp = 2, varia
     }
   }
   
-  #if within-group variances are fixed, add some variation to the within-group variances, then simulate the required number of observations as above
+  #if within-group variances are not fixed, add some variation to the within-group variances, then simulate the required number of observations as above
   if (variances == "variable"){
     
     for(j in 1:ngroups){

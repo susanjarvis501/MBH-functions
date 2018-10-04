@@ -19,7 +19,7 @@ car
 
 ## [simulate_dataMBH](https://github.com/susanjarvis501/MBH-functions/blob/master/simulate_dataMBH.R)
 
-`simulate_dataMBH(nobs = 10, ndims = 3, ngroups = 4, sdgrp = 2, variances = "fixed", vardiff = 0.5, means = rep(0,ndims), returntruecov = FALSE)`
+`simulate_dataMBH(nobs = 10, ndims = 3, ngroups = 4, sdgrp = 2, sdobs = NULL, variances = "fixed", vardiff = 0.5, means = rep(0,ndims), returntruecov = FALSE)`
 
 **Arguments**
 
@@ -27,6 +27,7 @@ car
 `ndims` - Number of variables to simulate  
 `ngroups` - Number of groups to simulate  
 `sdgrp` - Standard deviation of group means  
+`sdobs` - Standard deviation of observations within groups. Either a single value or vector with length equal to ndims. If NULL (default) a vector of length equal to ndims is generated from a Uniform distribution with bounds 1 and 10. Note that if sdobs = NULL the vector generated is on the variance scale, if sdobs is provided then it should be a standard deviation
 `variances` - Either "fixed" to constrain within-group variances to be the same (the default), or "variable" so within-group variances can vary  
 `vardiff` - Standard deviation of within-group variance differences  
 `means` - Means of each variable to simulate  
@@ -71,7 +72,7 @@ Returns a list
 
 **Arguments**
 
-`x` - Fitted MBH model 
+`x` - Fitted MBH model  
 `dims` - Which two dimensions to plot  
 `groupellipses` - Logical. Plot ellipses for each group?  
 `xlim` - xlim of plot  
