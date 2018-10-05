@@ -3,7 +3,7 @@ inclMBH <- function(hv, newdat){
   library(car)
   library(mvtnorm)
   
-  #extract volumes
+  #extract volume
   
   vol1 <- hv$volume
   
@@ -17,21 +17,21 @@ inclMBH <- function(hv, newdat){
   }else{mean1 <- colMeans(apply(hv$means, 3, rbind))}
   
   
-  #extract covariances
+  #extract covariance
   
   cov1 <- hv$covariance
   
   #extract variable names
   varnames1 <- hv$dimensions
   
-  #extract correctvars from newdat
+  #extract correct vars from newdat
   newvars <- newdat[,varnames1]
   
-  
+  #generate random points from hypervolume
   pnts_hv <- rmvnorm(round(vol1), mean1, cov1, method = "eigen")
   
   
-  #test inclusion
+  #test inclusion of new points
   totestall <- newvars
   prob <- vector()
   mean.test.p <- vector()

@@ -155,7 +155,7 @@ fitMBH <- function(x, vars, groups = NULL, nc = 3, ni = 100000, nb = 20000, nt =
     Y <- xarray
     
     
-    ##model 1 - with random effect
+    ##model with random effect
     
     sink("mod_modelbased.txt")  
     cat("model
@@ -167,7 +167,7 @@ fitMBH <- function(x, vars, groups = NULL, nc = 3, ni = 100000, nb = 20000, nt =
         
         Y[i,k,1:J] ~ dmnorm(mu[i,k,1:ndims], tau[ 1:ndims,1:ndims ])
         
-        #Now allow means to vary by variable and group
+        #Now allow means to vary by variable and group - note this additional step is required to define mu1 (which varies between groups and variables but not individuals). Tau.1 allows the individual means (cf fitted values) to vary around group means with a different value for each variable. However, in all simulations tau.1 is returned as a very small variance (high precision) indicating all variability in the data is captured in tau (inverse of sigma) and in the group and variable level means.
         for (j in 1:J){
         mu[i,k,j] ~ dnorm(mu1[k,j], tau.1[j])
         }
@@ -175,7 +175,7 @@ fitMBH <- function(x, vars, groups = NULL, nc = 3, ni = 100000, nb = 20000, nt =
         } 
         #loop over variables
         for (j in 1:J){
-        #each mean comes from an uninformative normal distribution
+        #each mean comes from an uninformative normal distribution with epsilion given a small precision to place an uninformative prior on means.
         mu1[k,j] ~ dnorm(0, 0.0001)
         }
         
