@@ -27,7 +27,7 @@ car
 `ndims` - Number of variables to simulate  
 `ngroups` - Number of groups to simulate  
 `sdgrp` - Standard deviation of group means  
-`sdobs` - Standard deviation of observations within groups. Either a single value or vector with length equal to ndims. If NULL (default) a vector of length equal to ndims is generated from a Uniform distribution with bounds 1 and 10. Note that if sdobs = NULL the vector generated is on the variance scale, if sdobs is provided then it should be a standard deviation
+`sdobs` - Standard deviation of observations within groups. Either a single value or vector with length equal to ndims. If NULL (default) a vector of length equal to ndims is generated from a Uniform distribution with bounds 1 and 10. Note that if sdobs = NULL the vector generated is on the variance scale, if sdobs is provided then it should be a standard deviation   
 `variances` - Either "fixed" to constrain within-group variances to be the same (the default), or "variable" so within-group variances can vary  
 `vardiff` - Standard deviation of within-group variance differences  
 `means` - Means of each variable to simulate  
